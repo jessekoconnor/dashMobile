@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { AppRegistry, View, Text, StyleSheet } from 'react-native';
 
 import Title from './Title';
+import Tiles from './Tiles';
+import Content from './Content';
 
 export default class FlexDimensionsBasics extends Component {
     render() {
@@ -9,15 +11,15 @@ export default class FlexDimensionsBasics extends Component {
             // Try removing the `flex: 1` on the parent View.
             // The parent will not have dimensions, so the children can't expand.
             // What if you add `height: 300` instead of `flex: 1`?
-            <View style={styles.parentView}>
+            <View style={styles.tileContainer}>
                 <View style={styles.title}>
                     <Title content={data.title}/>
                 </View>
                 <View style={styles.tiles}>
-                    <Text>Tile List</Text>
+                    <Tiles/>
                 </View>
                 <View style={styles.content}>
-                    <Text>Content View</Text>
+                    <Content/>
                 </View>
             </View>
         );
@@ -25,12 +27,13 @@ export default class FlexDimensionsBasics extends Component {
 }
 
 const styles = StyleSheet.create({
-    parentView: {
+    tileContainer: {
         flex: 1,
+        paddingTop: 10,
     },
     title: {flex: 1, backgroundColor: 'powderblue'},
-    tiles: {flex: 2, backgroundColor: 'skyblue'},
-    content: {flex: 5, backgroundColor: 'steelblue'}
+    tiles: {flex: 2, backgroundColor: 'skyblue', flexDirection: 'row'},
+    content: {flex: 6, backgroundColor: 'steelblue'}
 }),
     data = {
         title: 'supsup',
