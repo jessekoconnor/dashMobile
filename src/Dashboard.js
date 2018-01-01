@@ -1,16 +1,44 @@
 import React, { Component } from 'react';
-import { AppRegistry, View, Text, StyleSheet } from 'react-native';
+import { ActivityIndicator, Alert, AppRegistry, View, Text, StyleSheet } from 'react-native';
 
 import Title from './Title';
 import Tiles from './Tiles';
 import Content from './Content';
 
 export default class FlexDimensionsBasics extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            isLoading: true
+        }
+    }
+
+    componentDidMount() {
+        return fetch('https://0uom921bke.execute-api.us-east-1.amazonaws.com/Prod/legacy/scrape3S')
+            .then((response) => response.json())
+            .then((responseJson) => {
+                this.setState({
+                    isLoading: false,
+                    scrape3s: responseJson.result,
+                });
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+
+    }
+
     render() {
+        if (this.state.isLoading) {
+            return (
+                <View style={{flex: 1, paddingTop: 20}}>
+                    <ActivityIndicator />
+                </View>
+            );
+        }
+
         return (
-            // Try removing the `flex: 1` on the parent View.
-            // The parent will not have dimensions, so the children can't expand.
-            // What if you add `height: 300` instead of `flex: 1`?
             <View style={styles.tileContainer}>
                 <View style={styles.title}>
                     <Title content={data.title}/>
@@ -19,7 +47,7 @@ export default class FlexDimensionsBasics extends Component {
                     <Tiles/>
                 </View>
                 <View style={styles.content}>
-                    <Content/>
+                    <Content data={this.state.scrape3s}/>
                 </View>
             </View>
         );
