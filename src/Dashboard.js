@@ -20,12 +20,13 @@ export default class FlexDimensionsBasics extends Component {
             .then((responseJson) => {
                 let widgets = [{
                     result: responseJson.result,
-                    tileText: '3 S Artspace'
+                    headers: responseJson.headers,
                 }];
                 this.setState({
                     isLoading: false,
                     widgets: widgets,
                     selectedWidget: widgets[0],
+                    tileText: ['3 S Artspace'],
                 });
             })
             .catch((error) => {
@@ -48,12 +49,12 @@ export default class FlexDimensionsBasics extends Component {
                     <Title content={data.title}/>
                 </View>
                 <View style={styles.tiles}>
-                    <Tiles widgets={this.state.widgets} onPressHandler={(widgetIndex) => {
+                    <Tiles tileText={this.state.tileText} onPressHandler={(widgetIndex) => {
                         this.setState(previousState => {return {selectedWidget: previousState.widgets[widgetIndex]};});
                     }}/>
                 </View>
                 <View style={styles.content}>
-                    <Content data={this.state.selectedWidget.result}/>
+                    <Content data={this.state.selectedWidget.result} headers={this.state.selectedWidget.headers}/>
                 </View>
             </View>
         );

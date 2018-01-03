@@ -20,12 +20,12 @@ class Tile extends Component {
 
 export default class Tiles extends Component {
     render() {
-        let widgets = this.props.widgets || [];
+        let tileText = this.props.tileText || [];
         return (
             <View style={styles.tilesContainer}>
                 <ScrollView horizontal>
                     {
-                        widgets.map((widget,index) => {return <Tile text={widget.tileText} onPressHandler={this.props.onPressHandler} key={widget.tileText} arrayIndex={index}/>})
+                        tileText.map((text,index) => {return <Tile text={text} onPressHandler={this.props.onPressHandler} key={index} arrayIndex={index}/>})
                     }
                 </ScrollView>
             </View>
@@ -43,6 +43,6 @@ const styles = StyleSheet.create({
         borderWidth: 1,
     },
     tileText: {
-        fontSize: 20
+        fontSize: 20,
     },
 });

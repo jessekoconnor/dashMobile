@@ -4,10 +4,10 @@ import { AppRegistry, SectionList, StyleSheet, Text, View } from 'react-native';
 export default class Content extends Component {
 
     dataPrep() {
-        return this.props.data ? this.props.data.map((point) => {
+        return this.props.data && this.props.headers ? this.props.data.map((point) => {
             return {
-                title: point.date,
-                data: point.artists,
+                title: point[this.props.headers[0]],
+                data: point[this.props.headers[1]],
             };
         }) : [];
     }
