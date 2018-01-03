@@ -18,15 +18,19 @@ export default class FlexDimensionsBasics extends Component {
         return fetch('https://0uom921bke.execute-api.us-east-1.amazonaws.com/Prod/legacy/scrape3S')
             .then((response) => response.json())
             .then((responseJson) => {
+                let widgets = [{
+                    result: responseJson.result,
+                    tileText: '3 S Artspace'
+                }];
                 this.setState({
                     isLoading: false,
-                    scrape3s: responseJson.result,
+                    widgets: widgets,
+                    selectedWidget: widgets[0],
                 });
             })
             .catch((error) => {
                 console.error(error);
             });
-
     }
 
     render() {
@@ -44,10 +48,12 @@ export default class FlexDimensionsBasics extends Component {
                     <Title content={data.title}/>
                 </View>
                 <View style={styles.tiles}>
-                    <Tiles/>
+                    <Tiles widgets={this.state.widgets} onPressHandler={(widgetIndex) => {
+                        this.setState(previousState => {return {selectedWidget: previousState.widgets[widgetIndex]};});
+                    }}/>
                 </View>
                 <View style={styles.content}>
-                    <Content data={this.state.scrape3s}/>
+                    <Content data={this.state.selectedWidget.result}/>
                 </View>
             </View>
         );

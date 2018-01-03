@@ -1,25 +1,32 @@
 import React, { Component } from 'react';
-import { ScrollView, AppRegistry, View, Text, StyleSheet } from 'react-native';
+import { Alert, TouchableHighlight, ScrollView, View, Text, StyleSheet } from 'react-native';
 
 class Tile extends Component {
+
+    constructor(props) {
+        super(props);
+        this.arrayIndex = props.arrayIndex;
+    }
+
     render() {
+        let tileText = this.props.text || 'Tile Text Here';
         return (
-            <View style={styles.tileContainer}>
-                <Text style={styles.tileText}>Tile Content</Text>
-            </View>
+            <TouchableHighlight style={styles.tileContainer} onPress={(event) => {this.props.onPressHandler(this.props.arrayIndex)}} underlayColor="white">
+                <Text style={styles.tileText}>{tileText}</Text>
+            </TouchableHighlight>
         );
     }
 }
 
 export default class Tiles extends Component {
     render() {
+        let widgets = this.props.widgets || [];
         return (
             <View style={styles.tilesContainer}>
                 <ScrollView horizontal>
-                    <Tile/>
-                    <Tile/>
-                    <Tile/>
-                    <Tile/>
+                    {
+                        widgets.map((widget,index) => {return <Tile text={widget.tileText} onPressHandler={this.props.onPressHandler} key={widget.tileText} arrayIndex={index}/>})
+                    }
                 </ScrollView>
             </View>
         );
