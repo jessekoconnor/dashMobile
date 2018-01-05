@@ -5,7 +5,7 @@ export default class Title extends Component {
     render() {
         return (
             <View style={styles.tileContainer}>
-                <Text style={styles.text}>SupSupSup</Text>
+                <Text style={styles.text}>{this.props.content}</Text>
             </View>
         );
     }

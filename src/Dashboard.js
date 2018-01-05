@@ -15,23 +15,34 @@ export default class FlexDimensionsBasics extends Component {
     }
 
     componentDidMount() {
-        return fetch('https://0uom921bke.execute-api.us-east-1.amazonaws.com/Prod/legacy/scrape3S')
+        return fetch('https://0uom921bke.execute-api.us-east-1.amazonaws.com/Prod/dashboard/nightlife')
             .then((response) => response.json())
             .then((responseJson) => {
-                let widgets = [{
-                    result: responseJson.result,
-                    headers: responseJson.headers,
-                }];
+                console.log('supsup1', responseJson);
+                let widgets = responseJson;
                 this.setState({
                     isLoading: false,
                     widgets: widgets,
                     selectedWidget: widgets[0],
-                    tileText: ['3 S Artspace'],
+                    tileText: widgets.map((widget) => {
+                        console.log('widget.tileText', widget.tileText);
+                        return widget.tileText;
+                    })
                 });
             })
             .catch((error) => {
                 console.error(error);
             });
+    }
+
+    tiles() {
+        if (this.state.isLoading) {
+            return (
+                <View style={{flex: 1, paddingTop: 20}}>
+                    <ActivityIndicator />
+                </View>
+            );
+        }
     }
 
     render() {
@@ -71,5 +82,5 @@ const styles = StyleSheet.create({
     content: {flex: 6, backgroundColor: 'steelblue'}
 }),
     data = {
-        title: 'supsup',
+        title: 'Night Life',
     };
