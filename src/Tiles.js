@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Alert, TouchableHighlight, ScrollView, View, Text, StyleSheet } from 'react-native';
+import { ActivityIndicator, TouchableHighlight, ScrollView, View, Text, StyleSheet } from 'react-native';
 
 class Tile extends Component {
 
@@ -20,6 +20,13 @@ class Tile extends Component {
 
 export default class Tiles extends Component {
     render() {
+        if (this.props.isLoading) {
+            return (
+                <View style={styles.loader}>
+                    <ActivityIndicator color="#0000ff" />
+                </View>
+            );
+        }
         let tileText = this.props.tileText || [];
         return (
             <View style={styles.tilesContainer}>
@@ -34,8 +41,9 @@ export default class Tiles extends Component {
 }
 
 const styles = StyleSheet.create({
-    tilesContainer: {
-
+    loader: {
+        flex: 1,
+        justifyContent: 'center',
     },
     tileContainer: {
         flex: 1,
@@ -45,4 +53,7 @@ const styles = StyleSheet.create({
     tileText: {
         fontSize: 20,
     },
+    tilesContainer: {
+
+    }
 });

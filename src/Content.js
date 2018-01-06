@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { AppRegistry, SectionList, StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, SectionList, StyleSheet, Text, View } from 'react-native';
 
 export default class Content extends Component {
 
@@ -13,6 +13,13 @@ export default class Content extends Component {
     }
 
     render() {
+        if (this.props.isLoading) {
+            return (
+                <View style={styles.loader}>
+                    <ActivityIndicator size="large" color="#0000ff"/>
+                </View>
+            );
+        }
         let sections = this.dataPrep();
         return (
             <View style={styles.container}>
@@ -45,7 +52,8 @@ const styles = StyleSheet.create({
         fontSize: 15,
         height: 30,
     },
+    loader: {
+        flex: 1,
+        justifyContent: 'center',
+    },
 })
-
-// skip this line if using Create React Native App
-AppRegistry.registerComponent('AwesomeProject', () => SectionListBasics);

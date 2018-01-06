@@ -35,37 +35,19 @@ export default class FlexDimensionsBasics extends Component {
             });
     }
 
-    tiles() {
-        if (this.state.isLoading) {
-            return (
-                <View style={{flex: 1, paddingTop: 20}}>
-                    <ActivityIndicator />
-                </View>
-            );
-        }
-    }
-
     render() {
-        if (this.state.isLoading) {
-            return (
-                <View style={{flex: 1, paddingTop: 20}}>
-                    <ActivityIndicator />
-                </View>
-            );
-        }
-
         return (
             <View style={styles.tileContainer}>
                 <View style={styles.title}>
                     <Title content={data.title}/>
                 </View>
                 <View style={styles.tiles}>
-                    <Tiles tileText={this.state.tileText} onPressHandler={(widgetIndex) => {
+                    <Tiles tileText={this.state.tileText} isLoading={this.state.isLoading} onPressHandler={(widgetIndex) => {
                         this.setState(previousState => {return {selectedWidget: previousState.widgets[widgetIndex]};});
                     }}/>
                 </View>
                 <View style={styles.content}>
-                    <Content data={this.state.selectedWidget.result} headers={this.state.selectedWidget.headers}/>
+                    <Content isLoading={this.state.isLoading} data={this.state.isLoading ? [] : this.state.selectedWidget.result} headers={this.state.isLoading ? [] : this.state.selectedWidget.headers}/>
                 </View>
             </View>
         );
